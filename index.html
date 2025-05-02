@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .delete-btn {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+            text-decoration: underline;
+        }
+
+        .update-btn {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .update-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Employee Management System</h1>
+        </header>
+       
+        <main>
+            <form action="/add" method="post">
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <input type="text" name="designation" placeholder="Enter Designation" required>
+                <input type="number" name="salary" placeholder="Enter Salary" required>
+                <button type="submit">Add Employee</button>
+            </form>
+            
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Salary</th>
+                        <th>Action 1</th>
+                        <th>Action 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.designation }}</td>
+                            <td>{{ employee.salary }}</td>
+                            <td><a href="/delete/{{ employee._id }}" class="delete-btn">Delete</a></td>
+                            <td><a href="/update/{{ employee._id }}" class="update-btn">Update</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
